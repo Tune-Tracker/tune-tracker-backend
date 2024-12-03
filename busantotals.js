@@ -1,8 +1,8 @@
 const { MongoClient } = require('mongodb');
 
-const MONGO_URI = process.env.MONGO_URI;
-const DB_NAME = 'powerData';
-const COLLECTION_NAME = 'usage';
+const MONGO_URI = '';
+const DB_NAME = 'powerUsage';
+const COLLECTION_NAME = 'houseAve';
 const OUTPUT_COLLECTION = 'busanTotals';
 
 async function aggregateBusanData() {
