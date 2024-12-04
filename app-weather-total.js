@@ -2,9 +2,9 @@ require('dotenv').config();
 var request = require('request');
 const { MongoClient } = require('mongodb');
 
-const connect = process.env.MONGO_URI;  // MongoDB 연결 URI (IP와 포트 확인 필요)
-const DBNAME = process.env.DATABASE_NAME;  // 사용할 데이터베이스 이름
-const COL = process.env.COLLECTION_NAME;  // 컬렉션 이름 
+const MONGO_URI = process.env.MONGO_URI; // MongoDB 연결 URI (IP와 포트 확인 필요)
+const DATABASE_NAME = process.env.DATABASE_NAME; // 사용할 데이터베이스 이름
+const COLLECTION_NAME2 = process.env.COLLECTION_NAME2; // 컬렉션 이름 (월별 데이터 저장용)
 
 // MongoDB 클라이언트 초기화
 const client = new MongoClient(MONGO_URI);
@@ -13,7 +13,7 @@ async function saveToMongoDB(data) {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
-        const collection = db.collection(COLLECTION_NAME);
+        const collection = db.collection(COLLECTION_NAME2);
 
         // MongoDB에 데이터 삽입
         const result = await collection.insertMany(data);
@@ -26,7 +26,7 @@ async function saveToMongoDB(data) {
 }
 
 var url = 'http://apis.data.go.kr/1360000/AsosDalyInfoService/getWthrDataList';
-var serviceKey = process.env.SERVICE_KEY;
+var serviceKey = process.env.SERVICE_KEY; // .env 파일에서 서비스 키를 가져옴
 
 var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + encodeURIComponent(serviceKey);
 queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
@@ -51,6 +51,7 @@ request({
         try {
             var result = JSON.parse(body);
 
+            // 평균 온도(avgTa)만 출력
             if (result.response && result.response.body && result.response.body.items && result.response.body.items.item) {
                 var items = result.response.body.items.item;
 
@@ -62,7 +63,7 @@ request({
                 const monthlyData = items.reduce((acc, item) => {
                     const date = new Date(item.tm);
                     const monthKey = `${date.getFullYear()}-${date.getMonth() + 1}`; // ex: "2023-1" for January 2023
-                    // 일별 데이터를 달 단위로 묶어서 평균을 출력(평균온도, 강수량, 최저기온, 최고기온...)
+
                     if (!acc[monthKey]) {
                         acc[monthKey] = {
                             count: 0,
@@ -97,7 +98,7 @@ request({
 
                 console.log(formattedData); // 콘솔에 출력
 
-                // 출력된 데이터들을 MongoDB에 저장
+                // MongoDB에 데이터 저장
                 await saveToMongoDB(formattedData);
             }
         } catch (e) {

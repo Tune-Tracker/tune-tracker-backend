@@ -2,9 +2,9 @@ require('dotenv').config();
 var request = require('request');
 const { MongoClient } = require('mongodb');
 
-const connect = process.env.MONGO_URI;  // MongoDB 연결 URI (IP와 포트 확인 필요)
-const DBNAME = process.env.DATABASE_NAME;  // 사용할 데이터베이스 이름
-const COL = process.env.COLLECTION_NAME;  // 컬렉션 이름 
+const MONGO_URI = process.env.MONGO_URI;  // MongoDB 연결 URI (IP와 포트 확인 필요)
+const DATABASE_NAME = process.env.DATABASE_NAME;  // 사용할 데이터베이스 이름
+const COLLECTION_NAME = process.env.COLLECTION_NAME;  // 컬렉션 이름 
 
 // MongoDB 클라이언트 초기화
 const client = new MongoClient(MONGO_URI);
