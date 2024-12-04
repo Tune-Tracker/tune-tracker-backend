@@ -2,29 +2,29 @@ const mongoose = require("mongoose");
 
 // 전력 데이터 스키마 정의
 const electricitySchema = new mongoose.Schema({
-  date: {
-    type: String, // 날짜 (YYYY-MM-DD 형식)
+  year: {
+    type: Number, // 연도 (YYYY 형식)
     required: true,
   },
-  time: {
-    type: String, // 시간 (HH:mm 형식)
+  month: {
+    type: Number, // 월 (1~12 형식)
     required: true,
   },
-  consumption: {
-    type: Number, // 전력 소비량 (kWh)
+  totalBill: {
+    type: Number, // 청구서 합계 (원 단위)
     required: true,
   },
-  region: {
-    type: String, // 지역 이름 (예: 부산, 서울 등)
+  totalHouseCnt: {
+    type: Number, // 가구 수 합계
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now, // 데이터 생성 시간
+  totalPowerUsage: {
+    type: Number, // 전력 사용량 합계 (kWh)
+    required: true,
   },
 });
 
 // 모델 생성
-const Electricity = mongoose.model("Electricity", electricitySchema);
+const elect = mongoose.model("elect", electSchema);
 
 module.exports = elect;
