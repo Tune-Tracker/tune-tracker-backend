@@ -1,6 +1,8 @@
+require('dotenv').config(); // dotenv 로드
 const { MongoClient } = require('mongodb');
 
-const MONGO_URI = '';
+// 환경 변수에서 MongoDB URI 가져오기
+const MONGO_URI = process.env.MONGO_URI;
 const DB_NAME = 'powerUsage';
 const COLLECTION_NAME = 'houseAve';
 const OUTPUT_COLLECTION = 'busanTotals';
