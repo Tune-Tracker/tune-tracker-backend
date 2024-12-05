@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const weatherRoutes = require('./routes/monthlyWeather');
-const electRoutes = require('./routes/monthlyElect')
+const electRoutes = require('./routes/monthlyElect');
+const weatherWeekRoutes = require('./routes/weeklyWeather');
 const app = express();
 
 // MongoDB 연결
@@ -19,7 +20,8 @@ app.use(express.json());
 
 // 라우트 설정
 app.use('/api/weather', weatherRoutes);
-app.use('/api/elect',electRoutes)
+app.use('/api/elect', electRoutes);
+app.use('/api/weatherWeek', weatherWeekRoutes);
 
 // 서버 실행
 const PORT = process.env.PORT || 3000;
