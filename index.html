@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Usage Prediction</title>
+    <script>
+        async function predictPowerUsage(event) {
+            event.preventDefault();
+
+            const avgTemp = document.getElementById('avgTemp').value;
+            const precipitation = document.getElementById('precipitation').value;
+            const avgRhm = document.getElementById('avgRhm').value;
+            const season = document.getElementById('season').value;
+
+            // FastAPI로 데이터 전송
+            try {
+                const response = await fetch('http://127.0.0.1:8000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        avgTemp: parseFloat(avgTemp),
+                        precipitation: parseFloat(precipitation),
+                        avgRhm: parseFloat(avgRhm),
+                        season: season,
+                    }),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    document.getElementById('result').innerText = `Predicted Power Usage: ${result.predicted_power_usage} kWh`;
+                } else {
+                    document.getElementById('result').innerText = 'Error: ' + result.error;
+                }
+            } catch (error) {
+                document.getElementById('result').innerText = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Enter Data for Power Usage Prediction</h1>
+    <form onsubmit="predictPowerUsage(event)">
+        <label for="avgTemp"> 평균 기온 (°C):</label>
+        <input type="number" id="avgTemp" name="avgTemp" required><br><br>
+        
+        <label for="precipitation">강수량 (mm):</label>
+        <input type="number" id="precipitation" name="precipitation" required><br><br>
+        
+        <label for="avgRhm">습도 :</label>
+        <input type="number" id="avgRhm" name="avgRhm" required><br><br>
+        
+        <label for="season">계절 :</label>
+        <select id="season" name="season">
+            <option value="season_spring">Spring</option>
+            <option value="season_summer">Summer</option>
+            <option value="season_fall">Fall</option>
+            <option value="season_winter">Winter</option>
+        </select><br><br>
+        
+        <button type="submit">Predict</button>
+    </form>
+    
+    <h2 id="result"></h2>
+</body>
+</html>
