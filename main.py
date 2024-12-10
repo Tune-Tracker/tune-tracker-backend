@@ -11,7 +11,8 @@ app = FastAPI()
 
 # CORS 미들웨어 설정
 origins = [
-    "http://localhost:3000",  # 허용할 출처를 추가합니다.
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
 app.add_middleware(
