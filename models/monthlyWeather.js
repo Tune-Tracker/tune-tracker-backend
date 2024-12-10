@@ -26,6 +26,10 @@ const monthlyweatherSchema = new mongoose.Schema(
       type: Number,
       required: true,
     }, // 최고 기온
+    avgRhm: {
+      type: Number,
+      required: true,
+    }, // 습도
   },
   {
     collection: "monthlyWeather", // MongoDB 컬렉션 이름
