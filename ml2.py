@@ -37,7 +37,7 @@ def determine_season(month):
 data['season'] = data['month'].apply(determine_season)
 
 # 필요한 컬럼 선택
-data = data[["totalPowerUsage", "avgTemp", "precipitation", "season"]]
+data = data[["totalPowerUsage", "avgTemp", "precipitation", "season", "avgRhm"]]
 data.dropna(inplace=True)
 
 # 계절 변수 원-핫 인코딩
@@ -57,7 +57,7 @@ plt.title("Feature Correlation Heatmap")
 plt.show()
 
 # 독립 변수(X)와 종속 변수(y) 설정
-X = data[["avgTemp", "precipitation", "season_spring", "season_summer", "season_winter"]]
+X = data[["avgTemp", "precipitation", "avgRhm", "season_spring", "season_summer", "season_winter", "season_fall"]]
 y = data["totalPowerUsage"]
 
 # 데이터 분리

@@ -1,3 +1,4 @@
-1.python -m venv .venv
+1.python -m venv .venv or python3 -m venv .venv
 2.# Windows에서는 .venv\Scripts\activate
+#mac에서는 source .venv/bin/activate
 3.pip install -r requirements.txt
