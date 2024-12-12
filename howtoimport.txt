@@ -3,3 +3,5 @@
 #mac에서는 source .venv/bin/activate
 3.pip install -r requirements.txt
 4.#serveropen-> uvicorn main:app --reload
+uvicorn main:app --host 0.0.0.0 --port 8000 --proxy-headers
+pm2 start ecosystem.config.js
