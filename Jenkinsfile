@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        MONGO_URI = "${env.MONGO_URI}"  // Jenkins Global Properties에서 설정한 MONGO_URI 환경 변수 참조
+        MONGO_URI = "${env.MONGO_URI}"
+        SERVICE_KEY = "${env.SERVICE_KEY}"  
         }
     
     stages {
