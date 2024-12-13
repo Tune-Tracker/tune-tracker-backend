@@ -40,7 +40,7 @@ pipeline {
             steps {
                 // 테스트 실행 (선택 사항)
                 script {
-                    sh '. venv/bin/activate && pytest tests/'
+                    sh '. venv/bin/activate && pytest tests'
                 }
             }
         }
