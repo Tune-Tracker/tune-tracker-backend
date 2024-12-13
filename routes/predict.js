@@ -7,7 +7,7 @@ router.post('/predict', async (req, res) => {
 
     try {
         // FastAPI 서버로 예측 요청 보내기
-        const response = await axios.post(`${process.env.ML_API_URL}/predict`, {
+        const response = await axios.post(`${process.env.API_BASE_URL}/predict`, {
             avgTemp,
             precipitation,
             avgRhm,
