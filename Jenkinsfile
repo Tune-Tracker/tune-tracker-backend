@@ -31,7 +31,6 @@ pipeline {
                 echo 'Deploying the application...'
                 // PM2로 애플리케이션 배포
                 sh '''
-                npm install -g pm2
                 pm2 stop weather-tracker-backend || true
                 pm2 start index.js --name weather-tracker-backend
                 pm2 logs weather-tracker-backend --lines 100
