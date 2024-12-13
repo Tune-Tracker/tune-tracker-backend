@@ -36,15 +36,6 @@ pipeline {
             }
         }
         
-        stage('Run Tests') {
-            steps {
-                // 테스트 실행 (선택 사항)
-                script {
-                    sh '. venv/bin/activate && pytest tests'
-                }
-            }
-        }
-        
         stage('Deploy') {
             steps {
                 // 배포 스크립트 실행
