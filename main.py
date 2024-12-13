@@ -44,7 +44,7 @@ class BillPredictionRequest(BaseModel):
 # 모델 로드 (앱 시작 시)
 bill_model = joblib.load('bill_model.pkl')
 
-@app.post("/predict_bill_from_usage")
+@app.post("/predictbill")
 async def predict_bill_from_usage(request: BillPredictionRequest):
     # 입력데이터 DataFrame화
     input_df = pd.DataFrame([[request.usage]], columns=["totalPowerUsage"])
