@@ -17,13 +17,13 @@ app.use(cors());  // 모든 출처에서의 요청을 허용
 
 
 // MongoDB 연결
-const MONGO_URI = process.env.MONGO_URI;
-mongoose.connect(MONGO_URI)
+//const MONGO_URI = process.env.MONGO_URI;
+mongoose.connect("https://mgdb.wt-backend.store/")
     .then(() => console.log('MongoDB 연결 성공'))
     .catch(err => console.error('MongoDB 연결 실패:', err));
 
 
-const client = new MongoClient(MONGO_URI);
+const client = new MongoClient("https://mgdb.wt-backend.store/");
 // 미들웨어 설정
 //app.use(bodyParser.json());
 
