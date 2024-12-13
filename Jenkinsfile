@@ -40,7 +40,7 @@ pipeline {
             steps {
                 // 배포 스크립트 실행
                 script {
-                    sh '. venv/bin/activate && python main.py'
+                    sh '. venv/bin/activate && uvicorn main:app --host 0.0.0.0 --port 8000 --proxy-headers'
                 }
             }
         }
