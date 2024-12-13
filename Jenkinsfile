@@ -10,8 +10,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Git에서 소스 코드 체크아웃
-                git 'https://github.com/Weather-Tracker-Project/weather-tracker-backend.git'
+                // Git에서 feature/ml 브랜치 체크아웃, 자격 증명 추가
+                git branch: 'feature/ml', 
+                    credentialsId: 'github-access-token', // Jenkins에 등록된 자격 증명 ID
+                    url: 'https://github.com/Weather-Tracker-Project/weather-tracker-backend.git'
             }
         }
         
