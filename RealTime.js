@@ -2,7 +2,6 @@ const moment = require('moment');
 const request = require('request');
 const { MongoClient } = require('mongodb');
 
-
 // DB 저장 함수
 async function saveToMongoDB(data, client) {
     try {
@@ -20,6 +19,21 @@ async function saveToMongoDB(data, client) {
 
             const result = await collection.bulkWrite(bulkOps);
             console.log(`업데이트된 문서: ${result.modifiedCount}, 삽입된 문서: ${result.upsertedCount}`);
+
+            // 추가: 데이터가 7개를 초과하면 오래된 데이터 삭제
+            const docCount = await collection.countDocuments({ city: data[0].city }); // 도시 기준 데이터 개수 확인
+            if (docCount > 7) {
+                const excessDocs = await collection
+                    .find({ city: data[0].city }) // 도시 필터링
+                    .sort({ Date: 1 }) // 오래된 데이터부터 정렬
+                    .limit(docCount - 7) // 초과 데이터만 선택
+                    .toArray();
+
+                const excessIds = excessDocs.map(doc => doc._id); // 초과 데이터의 _id 가져오기
+
+                const deleteResult = await collection.deleteMany({ _id: { $in: excessIds } }); // 초과 데이터 삭제
+                console.log(`삭제된 오래된 문서 수: ${deleteResult.deletedCount}`);
+            }
         } else {
             console.log('저장할 데이터가 없습니다.');
         }
@@ -28,10 +42,11 @@ async function saveToMongoDB(data, client) {
     }
 }
 
+
 // 데이터 업데이트 함수
 async function fetchWeatherData(client, serviceKey) {
-    const endDate = moment().subtract(1, 'days').format('YYYYMMDD'); // startDate, endDate 둘다 어제 날짜로 설정 ==> 1시간 주기로 계속 업데이트
-    const startDate = moment().subtract(1, 'days').format('YYYYMMDD'); 
+    const endDate = moment().subtract(2, 'days').format('YYYYMMDD'); // startDate, endDate 둘다 어제 날짜로 설정 ==> 1시간 주기로 계속 업데이트
+    const startDate = moment().subtract(8, 'days').format('YYYYMMDD'); 
 
     const url = 'http://apis.data.go.kr/1360000/AsosDalyInfoService/getWthrDataList';
 
