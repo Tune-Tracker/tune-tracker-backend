@@ -1,7 +1,9 @@
 from dotenv import load_dotenv
 import os
 import pymongo
+import numpy as np
 import pandas as pd
+from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
@@ -24,15 +26,15 @@ weather_data = pd.DataFrame(list(weather_collection.find()))
 data = pd.merge(elect_data, weather_data, on="month")
 
 # 필요한 컬럼 선택
-data = data[["totalPowerUsage", "avgTemp", "minTemp", "maxTemp", "precipitation", "month", "avgRhm"]]
+data = data[["averagePowerUsage", "avgTemp", "minTemp", "maxTemp", "precipitation", "month", "avgRhm"]]
 data.dropna(inplace=True)
 
 # 월 변수 원-핫 인코딩
 data = pd.get_dummies(data, columns=["month"], prefix="month", drop_first=False)
 
 # 독립변수, 종속변수 설정
-X = data.drop(columns=["totalPowerUsage"])
-y = data["totalPowerUsage"]
+X = data.drop(columns=["averagePowerUsage"])
+y = data["averagePowerUsage"]
 
 # 데이터 분리
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -49,6 +51,9 @@ y_pred = model.predict(X_test)
 # 성능지표 계산
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
+rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+
 
 print("Mean Absolute Error (MAE):", mae)
 print("R^2 Score:", r2)
+print("Root Mean Squared Error (RMSE):", rmse)

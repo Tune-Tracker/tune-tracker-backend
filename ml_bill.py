@@ -24,10 +24,10 @@ data = pd.merge(elect_data, weather_data, on="month")
 
 # totalBill 예측을 위한 데이터 준비
 # totalPowerUsage와 totalBill 컬럼이 elect_data에 존재한다고 가정
-data_bill = data[["totalPowerUsage", "totalBill"]].dropna()
+data_bill = data[["averagePowerUsage", "averageBill"]].dropna()
 
-X_bill = data_bill[["totalPowerUsage"]]  # 독립변수: 전력사용량
-y_bill = data_bill["totalBill"]          # 종속변수: 전력비용
+X_bill = data_bill[["averagePowerUsage"]]  # 독립변수: 전력사용량
+y_bill = data_bill["averageBill"]          # 종속변수: 전력비용
 
 X_train_b, X_test_b, y_train_b, y_test_b = train_test_split(X_bill, y_bill, test_size=0.2, random_state=42)
 

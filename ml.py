@@ -24,7 +24,7 @@ weather_data = pd.DataFrame(list(weather_collection.find()))
 data = pd.merge(elect_data, weather_data, on="month")
 
 # 필요한 컬럼 선택
-data = data[["totalPowerUsage", "avgTemp", "minTemp", "maxTemp", "precipitation", "month", "avgRhm"]]
+data = data[["averagePowerUsage", "avgTemp", "minTemp", "maxTemp", "precipitation", "month", "avgRhm"]]
 data.dropna(inplace=True)  # 결측값 제거
 
 # 월 변수 원-핫 인코딩
@@ -44,8 +44,8 @@ plt.title("Feature Correlation Heatmap")
 plt.show()
 
 # 독립 변수(X)와 종속 변수(y) 설정
-X = data.drop(columns=["totalPowerUsage"])  # "totalPowerUsage"는 종속 변수로 제외
-y = data["totalPowerUsage"]
+X = data.drop(columns=["averagePowerUsage"])  # "totalPowerUsage"는 종속 변수로 제외
+y = data["averagePowerUsage"]
 
 # 데이터 분리
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
