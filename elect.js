@@ -58,7 +58,7 @@ async function saveToMongoDB(data, year, month) {
 
 // 전체 데이터 수집 및 저장
 async function collectAndStoreData() {
-  for (let year = 2018; year <= 2023; year++) {
+  for (let year = 2014; year <= 2024; year++) {
     for (let month = 1; month <= 12; month++) {
       const monthStr = month.toString().padStart(2, "0");
       console.log(`데이터 요청 중: ${year}-${monthStr}`);

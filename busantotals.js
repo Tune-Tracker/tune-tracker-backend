@@ -25,7 +25,6 @@ async function aggregateBusanData() {
             },
             {
                 $group: {
-                    
                     _id: { year: "$year", month: "$month" }, // 연도와 월별 그룹화
                     totalBill: { $sum: "$bill" }, // bill 합산
                     totalHouseCnt: { $sum: "$houseCnt" }, // houseCnt 합산
@@ -33,17 +32,17 @@ async function aggregateBusanData() {
                 }
             },
             {
-                $sort: { "_id.year": 1, "_id.month": 1 } // 연도와 월 기준으로 정렬
-            },
-            {
                 $project: {
                     year: "$_id.year",
                     month: { $toInt: "$_id.month" }, // month를 정수로 변환하여 1~12로 표현
-                    totalBill: 1,
-                    totalHouseCnt: 1,
-                    totalPowerUsage: 1,
+                    averageBill: { $divide: ["$totalBill", 16] }, // bill 평균 계산
+                    averagePowerUsage: { $divide: ["$totalPowerUsage", 16] }, // powerUsage 평균 계산
+                    totalHouseCnt: 1, // 총 가구 수 유지 (원한다면 이것도 평균 낼 수 있음)
                     _id: 0
                 }
+            },
+            {
+                $sort: { year: 1, month: 1 } // 연도와 월 기준으로 정렬
             }
         ];
 
@@ -53,7 +52,7 @@ async function aggregateBusanData() {
         // 결과를 새로운 컬렉션에 저장
         await outputCollection.insertMany(result);
 
-        console.log("부산광역시 데이터를 월별로 합산하고 저장 완료!");
+        console.log("부산광역시 데이터를 월별 평균으로 계산하고 저장 완료!");
     } catch (error) {
         console.error("오류 발생:", error.message);
     } finally {
