@@ -1,8 +1,7 @@
-<div align="center">
-  <h1>날씨 변화에 따른 전력 사용 예측량</h1>
-  
-![Frame 30](https://github.com/boostcampwm2023/web01-GitChallenge/assets/79246447/fe5e7fbd-93fe-40ea-be09-a902b712f6c3)
-</div>
+<h1 style="text-align: center;">날씨 변화에 따른 전력 사용 예측량</h1>
+<img width="1440" alt="스크린샷 2024-12-19 오후 3 37 06" src="https://github.com/user-attachments/assets/2f8581b8-2bec-4005-9ddc-ee1a2864fb05" />
+ 
+
 
 <p align=center>
   <a href="https://weather-tracker-frontend.vercel.app/">배포 주소</a>
@@ -21,32 +20,30 @@
 - ## [🚀 핵심 기능](#-핵심-기능)
 - [⚙️ 기술 스택](#️-기술-스택)
 - [🏛️ 시스템 아키텍처](#️-시스템-아키텍처)
-- [🔎 FE 기술적 도전](#-fe-기술적-도전)
+- [🔎 FE 기술적 도전](#-FE-기술적-도전)
   - [UX 개선](#ux-개선)
-- [🔎 BE 기술적 도전](#-be-기술적-도전)
+- [🔎 BE 기술적 도전](#BE-기술적-도전)
   - [BE 구축](#BE-구축)
     - [Express.js]: 날씨 및 전력 데이터를 입력받고 처리하는 API구성
     - [Fast.api]: Python 기반으로 개발된 고성능 API 서버 프레임워크 
     - [MongoDB]: 날씨 및 전력 데이터를 저장하는 NoSQL 데이터베이스
-  -[머신러닝 및 데이터 처리](#-머신러닝-및-데이터-처리)
+  - [머신러닝 및 데이터 처리](#머신러닝-및-데이터-처리)
     - [Python]: 데이터 처리 및 머신러닝 모델 개발
     - [Scikit-learn]: 날씨 데이터를 학습하여 전력 사용량을 예측하는 모델 구현
-  -[인프라 및 배포](#-인프라-및-배포)
+  - [인프라 및 배포](#인프라-및-배포)
     - [GABIA 도메인 구매]: 프로젝트 도메인 설정
     - [NGINX Proxy Manager]: 리버스 프록시 설정, 여러 서비스 연결 및 프록시 관리
     - [CloudFlare]: DNS설정 및 트래픽 보호
     - [Let's Encrypt]: 무료 SSL 인증서 발급 및 HTTPS 설정
     - [Jenkins]: CI/CD 파이프라인 구성으로 테스트 및 배포 자동화
 
-- [🧡 팀원 소개](#-팀원-소개)
+- [🧡 팀원 소개](#-팀원-소개)(
 - [팀장]: 20203980 임승진
-- [팀원]: 20202349 박현철
 - [팀원]: 20202979 진동우
+- [팀원]: 20202349 박현철
 
 ## ✍🏻 프로젝트 개요
-
-...
-
+> 본 프로젝트는 부산의 월간 날씨를 사용자에게 입력받고, 월간 전력 사용량을 예측하는 서비스를 배포하는것이 목적이다. 
 <br />
 
 ## 🚀 핵심 기능
@@ -63,12 +60,17 @@
 
 </aside>
 
-### 날씨 ~~
+### 얘측한 데이터를 AI 분석
 
-> 터미널 환경에서 직접 Git 명령어를 입력하고, vi 편집기를 사용하며
-> 문제를 풀어보세요.
+> 날씨 정보를 입력하고 전력사용량을 예측한 후
+> AI 분석을 실행해보세요.
 
-<img alt='' src="https://github.com/boostcampwm2023/web01-GitChallenge/assets/96400112/7e89b3f3-6987-4a1e-85d3-d6430aa3ad05" />
+
+<div style="display: flex; justify-content: space-around; align-items: center; margin-top: 20px;">
+  <img alt="result1" src="https://github.com/user-attachments/assets/c2953434-f7b1-462f-86b2-f07b5727048c" width="45%" />
+  <img alt="result2" src="https://github.com/user-attachments/assets/c2bf55c9-6001-4094-8cb9-6168996a9971" width="45%" />
+</div>
+
 
 ## ⚙️ 기술 스택
 
@@ -139,7 +141,8 @@
 
 ## 🏛️ 시스템 아키텍처
 
-![시스템 아키텍처](https://github.com/boostcampwm2023/web01-GitChallenge/assets/96400112/d94724b8-a7a7-48e6-bba8-891bc7bfd696)
+
+![시스템 아키텍처](https://github.com/user-attachments/assets/51d933ce-407d-4775-afdc-121e3d0e5639)
 
 <br />
 
@@ -147,9 +150,10 @@
 
 ### UX 개선
 
-| 랜딩 페이지                                                                                                                     | Git 그래프 변화                                                                                                                 |
+
+| 자동배포                                                                                                                    | 도메인과 프록시 관리                                                                                                                |
 | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| <img alt="" src="https://github.com/boostcampwm2023/web01-GitChallenge/assets/96400112/aae4947d-5782-4a1e-97b5-23c445cbe573" /> | <img alt="" src="https://github.com/boostcampwm2023/web01-GitChallenge/assets/96400112/1ad9a125-1137-4a8d-b5c0-140360a987c4" /> |
+| <img alt="" src="https://github.com/user-attachments/assets/0084cc15-abe6-40db-b255-dc9871a780c9" /> | <img alt="" src="https://github.com/user-attachments/assets/be4d6275-21d3-4099-9df8-8a5ade61a419" /> |
 
 - Intersection Observer를 사용하여 브라우저 화면에서 현재 보이는 영역을 동적으로 감지하고, 이를 기반으로 **스크롤 이벤트 애니메이션을 설계하고 구현**했습니다. 이를 통해 서비스에 처음 진입했을 때 사용자에게 적절한 맥락을 전달하고, **자연스러운 화면 전환을 제공**하기 위해 노력했습니다.
 - 사용자가 입력한 Git 명령어의 동작을 시각적으로 파악할 수 있도록 Git 그래프 변화에 애니메이션을 적용했습니다. D3의 데이터 조인을 이용해 데이터 추가, 수정, 그리고 삭제 애니메이션을 구현했습니다.
@@ -158,14 +162,13 @@
 
 ## 🔎 BE 기술적 도전
 
-### 도커 컨테이너
+### 배포 및 도메인 프록시 관리
+| 자동배포                                                                                                                    | 도메인과 프록시 관리                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| <img alt="" src="https://github.com/user-attachments/assets/0084cc15-abe6-40db-b255-dc9871a780c9" /> | <img alt="" src="https://github.com/user-attachments/assets/be4d6275-21d3-4099-9df8-8a5ade61a419" /> |
 
-<img width="50%" alt="docker container" src="https://github.com/boostcampwm2023/web01-GitChallenge/assets/96400112/c59857a3-08e5-49f0-9e8c-bab8a419be3a">
-
-- 사용자별 **격리된** git 문제 풀이 환경을 제공하면서도, git의 전역 설정들이 다른 사용자들에게 영향을 미치지 않도록 하기 위해 도커 컨테이너를 이용했습니다.
-- 컨테이너 생성 시간을 아끼고자 각 문제 별로 미리 생성된 컨테이너 환경에 사용자를 할당하고 새로운 컨테이너를 생성합니다.
-- 서버 자원을 효율적으로 사용하기 위해 오래 된(30분) 컨테이너는 자동 정리되며 사용자 재접속 시 **log 기반으로 복구**됩니다.
-- 네트워크 차단, 실행 가능 명령어 검증, 유저 권한 제한 등으로 사용자의 입력을 검증하고 제한했습니다.
+- Intersection Observer를 사용하여 브라우저 화면에서 현재 보이는 영역을 동적으로 감지하고, 이를 기반으로 **스크롤 이벤트 애니메이션을 설계하고 구현**했습니다. 이를 통해 서비스에 처음 진입했을 때 사용자에게 적절한 맥락을 전달하고, **자연스러운 화면 전환을 제공**하기 위해 노력했습니다.
+- 사용자가 입력한 Git 명령어의 동작을 시각적으로 파악할 수 있도록 Git 그래프 변화에 애니메이션을 적용했습니다. D3의 데이터 조인을 이용해 데이터 추가, 수정, 그리고 삭제 애니메이션을 구현했습니다.
 
 <br />
 
@@ -174,7 +177,7 @@
 |                                     임승진                                     |                                     진동우                                      |                                    박현철                                    |                                
 | :----------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | 
 | <img src="https://avatars.githubusercontent.com/u/83889135?v=4" width="120" /> | <img src="https://avatars.githubusercontent.com/u/182656885?v=4" width="120" /> | <img src="https://avatars.githubusercontent.com/u/48150853?v=4" width="120"> |
-|                                     **BE**                                     |                                     **BE**                                      |                                    **FE**                                    |                                  
+|                                     **FE**                                     |                                     **BE**                                      |                                    **BE**                                    |                                  
 |                    [@seungjin051](https://github.com/seungjin051)                    |                    [@Siper9379](https://github.com/Siper9379)                     |                   [@siri9811](https://github.com/siri9811)                   |
 
 ```
