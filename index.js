@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path')
 const cors = require('cors')
 const { MongoClient } = require('mongodb');
-const { saveToMongoDB, fetchWeatherData, classifyCloudiness } = require('./RealTime');
+const { saveToMongoDB, fetchWeatherData, classifyCloudiness, deleteOldWeatherData } = require('./RealTime');
 const weatherRoutes = require('./routes/monthlyWeather');
 const electRoutes = require('./routes/monthlyElect');
 const weatherWeekRoutes = require('./routes/weeklyWeather');
@@ -47,6 +47,9 @@ const serviceKey = process.env.SERVICE_KEY;
 setInterval(() => fetchWeatherData(client, serviceKey), 60 * 60 * 1000); // 1시간마다 갱신(60 * 60 * 1000ms(1초))
 fetchWeatherData(client, serviceKey); // 서버 시작 시 초기 데이터 가져오기
 
+// 주기적으로 오래된 데이터 삭제
+setInterval(() => deleteOldWeatherData(client), 60 * 60 * 1000); // 하루에 한 번 삭제
+deleteOldWeatherData(client); // 서버 시작 시 초기 삭제 작업 실행
 
 // 서버 실행
 const PORT = process.env.PORT || 3000;
