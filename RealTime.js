@@ -19,21 +19,6 @@ async function saveToMongoDB(data, client) {
 
             const result = await collection.bulkWrite(bulkOps);
             console.log(`업데이트된 문서: ${result.modifiedCount}, 삽입된 문서: ${result.upsertedCount}`);
-
-            // 추가: 데이터가 7개를 초과하면 오래된 데이터 삭제
-            const docCount = await collection.countDocuments({ city: data[0].city }); // 도시 기준 데이터 개수 확인
-            if (docCount > 7) {
-                const excessDocs = await collection
-                    .find({ city: data[0].city }) // 도시 필터링
-                    .sort({ Date: 1 }) // 오래된 데이터부터 정렬
-                    .limit(docCount - 7) // 초과 데이터만 선택
-                    .toArray();
-
-                const excessIds = excessDocs.map(doc => doc._id); // 초과 데이터의 _id 가져오기
-
-                const deleteResult = await collection.deleteMany({ _id: { $in: excessIds } }); // 초과 데이터 삭제
-                console.log(`삭제된 오래된 문서 수: ${deleteResult.deletedCount}`);
-            }
         } else {
             console.log('저장할 데이터가 없습니다.');
         }
@@ -42,6 +27,33 @@ async function saveToMongoDB(data, client) {
     }
 }
 
+// 오래된 데이터 삭제 함수
+async function deleteOldWeatherData(client) {
+    try {
+        const db = client.db("monthlyData");
+        const collection = db.collection("weeklyWeather");
+
+        // 모든 도시 데이터 관리 (예: city별 데이터 유지)
+        const cities = await collection.distinct('city');
+        for (const city of cities) {
+            const docCount = await collection.countDocuments({ city });
+            if (docCount > 7) {
+                const excessDocs = await collection
+                    .find({ city }) // 도시 필터링
+                    .sort({ Date: 1 }) // 오래된 데이터부터 정렬
+                    .limit(docCount - 7) // 초과 데이터만 선택
+                    .toArray();
+
+                const excessIds = excessDocs.map(doc => doc._id); // 초과 데이터의 _id 가져오기
+
+                const deleteResult = await collection.deleteMany({ _id: { $in: excessIds } }); // 초과 데이터 삭제
+                console.log(`도시: ${city}, 삭제된 오래된 문서 수: ${deleteResult.deletedCount}`);
+            }
+        }
+    } catch (error) {
+        console.error('오래된 데이터 삭제 중 오류 발생:', error);
+    }
+}
 
 // 데이터 업데이트 함수
 async function fetchWeatherData(client, serviceKey) {
@@ -121,5 +133,6 @@ function classifyCloudiness(cloudValue) {
 module.exports = {
     saveToMongoDB,
     fetchWeatherData,
-    classifyCloudiness
+    classifyCloudiness,
+    deleteOldWeatherData
 };
